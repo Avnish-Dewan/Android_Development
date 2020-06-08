@@ -1,14 +1,25 @@
 package com.example.examtimer;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleObserver;
+import androidx.lifecycle.OnLifecycleEvent;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.graphics.Color;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -47,7 +58,14 @@ class InputFilterMinMax implements InputFilter {
 }
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements LifecycleObserver {
+
+
+	boolean flag = false;
+	NotificationManagerCompat notificationManager;
+	NotificationCompat.Builder builder;
+
+	long currHour,currMin,currSec;
 
 	long hour,min,sec;
 	EditText hours,minutes,seconds;
@@ -70,6 +88,8 @@ public class MainActivity extends AppCompatActivity {
 		startButton = findViewById(R.id.button);
 		pause = findViewById(R.id.pause);
 		reset = findViewById(R.id.reset);
+
+		pause.setEnabled(false);
 
 		m1 = MediaPlayer.create(this,R.raw.audio);
 
@@ -94,25 +114,35 @@ public class MainActivity extends AppCompatActivity {
 					sec = Long.parseLong(ss);
 				}
 
+
+
 				time = (hour*3600 + min*60 + sec)*1000;
 
 				timer = new CountDownTimer(time, 1000) {
 
 					public void onTick(long millisUntilFinished) {
 
-						long second = millisUntilFinished / 1000;
-						long hour = second/3600;
-						second %= 3600;
+						currSec = millisUntilFinished / 1000;
+						currHour = currSec/3600;
+						currSec %= 3600;
 
-						long minute = second/60;
-						second%=60;
+						currMin = currSec/60;
+						currSec%=60;
 
 
-						hours.setText(String.valueOf(hour));
-						minutes.setText(String.valueOf(minute));
-						seconds.setText(String.valueOf(second));
+						hours.setText(String.valueOf(currHour));
+						minutes.setText(String.valueOf(currMin));
+						seconds.setText(String.valueOf(currSec));
+						updateNotifications();
 
 					}
+
+					@NonNull
+					@Override
+					public String toString() {
+						return currHour+":"+currMin+":"+currSec;
+					}
+
 					public void onFinish() {
 						startButton.setText("START");
 						Toast.makeText(MainActivity.this,"Time Up!!",Toast.LENGTH_SHORT).show();
@@ -168,4 +198,58 @@ public class MainActivity extends AppCompatActivity {
 		}
 	}
 
+	@RequiresApi(api = Build.VERSION_CODES.M)
+	@Override
+	protected void onPause() {
+		super.onPause();
+
+		flag = true;
+
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+			CharSequence name = "Notif1";
+			String description = "Notif Description";
+			int importance = NotificationManager.IMPORTANCE_LOW;
+			NotificationChannel channel = new NotificationChannel("MyChannel", name, importance);
+			channel.setDescription(description);
+			NotificationManager notificationManager = getSystemService(NotificationManager.class);
+			assert notificationManager != null;
+			notificationManager.createNotificationChannel(channel);
+		}
+
+
+
+		builder = new NotificationCompat.Builder(this, "MyChannel")
+				.setSmallIcon(R.drawable.ic_baseline_timer_24)
+				.setContentTitle("Timer:")
+				.setContentText(timer.toString())
+				.setPriority(NotificationCompat.PRIORITY_LOW);
+
+		notificationManager = NotificationManagerCompat.from(this);
+
+		notificationManager.notify(100, builder.build());
+
+		Log.d("BackOrFore","In BackGround");
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if(flag){
+
+			notificationManager.cancel(100);
+			flag = false;
+		}
+
+	}
+
+	public void updateNotifications(){
+
+		if(flag){
+			builder.setContentText(timer.toString());
+			notificationManager.notify(100,builder.build());
+		}
+	}
+
+
 }
+
