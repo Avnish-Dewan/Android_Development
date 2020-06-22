@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#2C3335"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/update"
+        android:layout_width="138dp"
+        android:layout_height="113dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="right"
+        android:layout_marginTop="160dp"
+        android:layout_marginEnd="44dp"
+        android:layout_toEndOf="@+id/add"
+        android:layout_weight="1"
+        android:background="@drawable/button_background"
+        android:backgroundTint="#616C6F"
+        android:text="UPDATE"
+        android:onClick="update"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/view"
+        android:layout_width="138dp"
+        android:layout_height="113dp"
+        android:layout_below="@+id/add"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="44dp"
+        android:layout_weight="1"
+        android:background="@drawable/button_background"
+        android:backgroundTint="#758AA2"
+        android:text="VIEW"
+        android:onClick="getAllData"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add" />
+
+    <Button
+        android:id="@+id/delete"
+        android:layout_width="138dp"
+        android:layout_height="113dp"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="44dp"
+        android:layout_toEndOf="@+id/view"
+        android:layout_weight="1"
+        android:background="@drawable/button_background"
+        android:backgroundTint="#8395A7"
+        android:text="DELETE"
+        android:enabled="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/update" />
+
+    <Button
+        android:id="@+id/add"
+        android:layout_width="138dp"
+        android:layout_height="113dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="left"
+        android:layout_marginTop="160dp"
+        android:layout_weight="1"
+        android:background="@drawable/button_background"
+        android:backgroundTint="#535C68"
+        android:onClick="add"
+        android:text="ADD"
+        app:layout_constraintEnd_toStartOf="@+id/update"
+        app:layout_constraintHorizontal_bias="0.571"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/viewAll"
+        android:layout_width="138dp"
+        android:layout_height="113dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="44dp"
+        android:layout_weight="1"
+        android:background="@drawable/button_background"
+        android:backgroundTint="#A4B0BD"
+        android:onClick="getAllData"
+        android:text="VIEW ALL"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
+
+    <Button
+        android:id="@+id/deleteAll"
+        android:layout_width="138dp"
+        android:layout_height="113dp"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="44dp"
+        android:layout_toEndOf="@+id/view"
+        android:layout_weight="1"
+        android:background="@drawable/button_background"
+        android:backgroundTint="#47535E"
+        android:text="DELETE ALL"
+        android:onClick="deleteAllData"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/delete" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:text="Student Records App"
+        android:textSize="25sp"
+        android:textColor="#DAE0E2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
