@@ -79,7 +79,7 @@ public class Update extends AppCompatActivity {
 		textViewEmail.setVisibility(x);
 	}
 
-	public void find(View v){
+	public void findData(View v){
 		DatabaseHelper helper = new DatabaseHelper(Update.this);
 
 
@@ -87,11 +87,11 @@ public class Update extends AppCompatActivity {
 
 		if(TextUtils.isEmpty(IDString)){
 			editTextID.setError("Cannot be Empty");
+			return;
 		}
 
 		if(!flag){
 
-			hideKeyboard();
 			Cursor cursor = helper.getData(IDString);
 
 			Log.d("Cursor",cursor.getCount()+"");

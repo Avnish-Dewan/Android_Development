@@ -68,7 +68,7 @@ public class ShowData extends AppCompatActivity {
 			view.setVisibility(View.GONE);
 			getData();
 
-			ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT,ConstraintLayout.LayoutParams.MATCH_PARENT);
+			ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.MATCH_PARENT);
 			recyclerView.setLayoutParams(params);
 		}
 
@@ -85,9 +85,6 @@ public class ShowData extends AppCompatActivity {
 		recyclerView.setAdapter(adapter) ;
 	}
 
-	public void back(View v){
-		startActivity(new Intent(ShowData.this,MainActivity.class));
-	}
 
 
 	public void viewData(View v){

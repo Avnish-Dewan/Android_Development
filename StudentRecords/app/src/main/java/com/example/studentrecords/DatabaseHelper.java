@@ -34,7 +34,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		onCreate(db);
 	}
 
-	public boolean insertData(String name,String email,String courseCounts){
+	public long insertData(String name,String email,String courseCounts){
 
 		SQLiteDatabase db = this.getWritableDatabase();
 
@@ -45,7 +45,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 		long result = db.insert(TABLE_NAME,null,contentValues);
 
-		return (result != -1);
+
+		return (result);
 	}
 
 	public boolean updateData(String id,String name,String email,String courseCounts){

@@ -54,7 +54,7 @@
         android:background="@drawable/button_background"
         android:backgroundTint="#8395A7"
         android:text="DELETE"
-        android:enabled="false"
+        android:onClick="deleteData"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/update" />
 
