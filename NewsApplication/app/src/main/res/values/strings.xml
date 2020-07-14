@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">News Application</string>
+    <string name="url"> <u> Read More...</u> </string>
+    <string name="noData"> No Data Available!! </string>
+</resources>
